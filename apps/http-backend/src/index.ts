@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { middleware } from "./middleware";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { SigninSchema , roomSchema , createUserSchema } from "@repo/common/types";
+import { prismaclient } from "@repo/db/client"
 
 dotenv.config();
 
