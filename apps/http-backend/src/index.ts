@@ -2,10 +2,9 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { middleware } from "./middleware";
-import {JWT_SECRET} from "@repo/backend-common/config";
-import { SigninSchema } from "@repo/common/types";
-import { roomSchema } from "@repo/common/types";
-import { createUserSchema } from "@repo/common/types";
+import { JWT_SECRET } from "@repo/backend-common/config";
+import { SigninSchema , roomSchema , createUserSchema } from "@repo/common/types";
+
 dotenv.config();
 
 const app = express();
@@ -37,6 +36,6 @@ app.post("create-room", middleware, (req, res) => {
     }
 )});
 
-app.listen(3001, () => {
+app.listen(3009, () => {
   console.log("Server is running on port 3000");
 });
