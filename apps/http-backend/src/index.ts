@@ -94,6 +94,9 @@ app.post("/signin", async (req: any, res: any) => {
 });
 
 app.post("/createroom", middleware, async (req : any, res : any ) => {
+  try {
+
+
   const parsedata = roomSchema.safeParse(req.body)
     if (!parsedata.success) {
       return res.status(400).json({
@@ -113,7 +116,29 @@ app.post("/createroom", middleware, async (req : any, res : any ) => {
   res.json({
     roomId: room.id,
   });
+  } catch (e) {
+    res.status(500).json({
+      message: "Internal Server Error " + e,
+    });
+    console.log("Internal Server error " + e);
+  }
 });
+
+app.get("/chat/:roomId",async (req:any , res :any)=>{
+  const roomId =  Number(req.params.roomId)
+  const messages = await prismaclient.chat.findMany({
+    where : {
+         roomId : roomId
+    },
+    orderBy : {
+      id : "desc"
+    },
+    take: 50
+  })
+  res.json({
+    messages
+  })
+})
 
 app.listen(3009, () => {
   console.log("Server is running on port 3000");
