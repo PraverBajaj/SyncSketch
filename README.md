@@ -86,6 +86,10 @@ This command runs all relevant packages concurrently.
 Below is a demo video showing how to set up and use Sync Sketch:
 
 
+https://github.com/user-attachments/assets/fedf1bac-5349-448b-9671-7ce422cc0b8f
+
+
+
 
 ---
 
