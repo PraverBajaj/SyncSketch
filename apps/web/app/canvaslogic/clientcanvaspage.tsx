@@ -9,7 +9,7 @@ export default function ClientCanvasPage({ roomId }: { roomId: string }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const token = localStorage.getItem("token");
     if (!token) {
       alert("You are not signed in");
       router.push("/signin");
