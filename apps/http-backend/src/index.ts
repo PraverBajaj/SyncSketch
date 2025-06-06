@@ -15,7 +15,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// (Global error handler middleware moved to the end of the file)
 
 // -------- SIGNUP --------
 app.post("/signup", async (req, res) => {
@@ -191,13 +190,5 @@ app.get("/shapeMovements/:roomId", auth, async (req, res) => {
 app.listen(3009, () => {
   console.log("Server running on http://localhost:3009");
 });
-// -------- SERVER LISTEN --------
-app.listen(3009, () => {
-  console.log("Server running on http://localhost:3009");
-});
 
-// Global error handler middleware (should be after all routes)
-app.use((err: any, req: any, res: any, next: any) => {
-  console.error("Unhandled Error:", err);
-  res.status(500).json({ warning: "Internal Server Error" });
-});
+
