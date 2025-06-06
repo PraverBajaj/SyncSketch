@@ -1,84 +1,108 @@
-# Turborepo starter
+# Sync Sketch
 
-This Turborepo starter is maintained by the Turborepo core team.
+Sync Sketch is a real-time collaborative drawing app built as a monorepo using [Turborepo](https://turbo.build/repo). The project uses **pnpm** as the package manager.
 
-## Using this example
+---
 
-Run the following command:
+## Project Structure
 
-```sh
-npx create-turbo@latest
+- `packages/db` — Database package with Prisma migrations
+- Other packages (e.g., client, server, shared) — app logic and UI components
+
+---
+
+## Requirements
+
+- **Node.js v23.5.0** (please ensure this exact version)
+- pnpm (`npm install -g pnpm`)
+- PostgreSQL or any supported database for Prisma
+
+---
+
+## Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/sync-sketch.git
+cd sync-sketch
 ```
 
-## What's inside?
+### 2. Install dependencies
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+pnpm install
 ```
 
-### Develop
+### 3. Database Setup (packages/db)
 
-To develop all apps and packages, run the following command:
+Change directory to the db package:
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+cd packages/db
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Copy `.env.example` to `.env` and update with your database connection string:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+cp .env.example .env
 ```
 
-## Useful Links
+Edit `.env`:
 
-Learn more about the power of Turborepo:
+```ini
+DATABASE_URL="postgresql://user:password@localhost:5432/sync_sketch_db"
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+Make sure your database server is running and accessible.
+
+Run Prisma migrations to set up the database schema:
+
+```bash
+pnpm prisma migrate deploy
+```
+
+If you want to create or modify migrations during development, run:
+
+```bash
+pnpm prisma migrate dev
+```
+
+### 4. Running the Project
+
+Return to the root directory and start the development server:
+
+```bash
+cd ../../
+pnpm turbo run dev
+```
+
+This command runs all relevant packages concurrently.
+
+---
+
+## Video Demo
+
+Below is a demo video showing how to set up and use Sync Sketch:
+
+
+
+---
+
+## Troubleshooting
+
+- Verify the `.env` file in `packages/db` is configured correctly.
+- Ensure your database server is running.
+- Use Prisma Studio to visually inspect the database:
+
+```bash
+pnpm prisma studio
+```
+
+*Run this inside the `packages/db` folder.*
+
+---
+
+## License
+
+MIT License
