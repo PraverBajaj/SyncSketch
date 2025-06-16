@@ -128,7 +128,7 @@ export function GridBackgroundDemo() {
 export function ColourfulTextDemo() {
   return (
     <div className="h-auto w-full flex items-start justify-center bg-transparent">
-      <h1 className="text-2xl md:text-5xl lg:text-7xl font-bold text-center text-white relative z-10 font-sans">
+      <h1 className="text-4xl md:text-5xl  lg:text-7xl font-bold text-center text-white relative z-10 font-sans">
         Online <ColourfulText text="Drawing Board" /> <br /> Made Simple
       </h1>
     </div>
@@ -205,12 +205,12 @@ export function VideoDemo() {
 
 export function WobbleCardDemo() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-10 max-w-7xl mx-auto w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-10 mt-20 max-w-7xl mx-auto w-full">
       <WobbleCard
-        containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
+        containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[200px] lg:min-h-[300px]"
         className=""
       >
-        <div className="max-w-xs">
+        <div className="max-w-xs ">
           <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
             Real-time collaborative sketching, redefined
           </h2>
@@ -218,13 +218,6 @@ export function WobbleCardDemo() {
             Join artists, designers, and teams drawing together in sync across the globe with our blazing-fast live sketch environment.
           </p>
         </div>
-        <img
-          src="/linear.webp"
-          width={500}
-          height={500}
-          alt="collaborative sketch"
-          className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl"
-        />
       </WobbleCard>
 
       <WobbleCard containerClassName="col-span-1 min-h-[300px]">
@@ -236,7 +229,7 @@ export function WobbleCardDemo() {
         </p>
       </WobbleCard>
 
-      <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
+      <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[200px] lg:min-h-[600px] xl:min-h-[300px]">
         <div className="max-w-sm">
           <h2 className="max-w-sm md:max-w-lg text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
             Try Sync Sketch now — designed for creators, built for teams.
@@ -245,13 +238,6 @@ export function WobbleCardDemo() {
             From design sprints to storyboarding, sketch, comment, and iterate — together, from anywhere.
           </p>
         </div>
-        <img
-          src="/linear.webp"
-          width={500}
-          height={500}
-          alt="sync sketch illustration"
-          className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
-        />
       </WobbleCard>
     </div>
   );
