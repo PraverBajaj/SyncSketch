@@ -9,11 +9,19 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 export default function AuthComp({ isSignup }: { isSignup: boolean }) {
-  useEffect(() => {
-    AOS.init({ duration: 600, once: true });
-  }, []);
+const router = useRouter();
 
-  useEffect(() => {
+useEffect(() => {
+  AOS.init({ duration: 600, once: true });
+}, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    router.replace("/roomsdashboard");
+  }
+}, [router]);
+
+useEffect(() => {
     function handleEnterKey(e: KeyboardEvent) {
       if (e.key === "Enter") {
         const email = emailInputRef.current?.value.trim();
@@ -39,7 +47,6 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
   const passInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function signup() {
     const email = emailInputRef.current?.value;
