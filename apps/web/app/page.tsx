@@ -194,7 +194,7 @@ export function VideoDemo() {
         loop
         playsInline
       >
-        <source src="./preview.mp4" type="video/mp4" />
+        <source src="./preview.mov" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>

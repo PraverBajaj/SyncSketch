@@ -19,34 +19,30 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(false);
   const roomNameRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  useEffect(() => {
-    Aos.init({
-      duration: 600,
-      once: true,
-    });
-  });
 
   useEffect(() => {
-    async function fetchData() {
-      const token = localStorage.getItem("token");
+    Aos.init({ duration: 600, once: true });
+  }, []);
 
-      try {
-        const [roomsRes, userRes] = await Promise.all([
-          axios.get(`${WEB_URL}/rooms`, {
-            headers: { Authorization: token },
-          }),
-          axios.get(`${WEB_URL}/username`, {
-            headers: { Authorization: token },
-          }),
-        ]);
-
-        setRoomsData(roomsRes.data.rooms);
-        setUserData(userRes.data.username[0]);
-      } catch (error) {
-        toast.error("Failed to load data");
-      }
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const [roomsRes, userRes] = await Promise.all([
+        axios.get(`${WEB_URL}/rooms`, {
+          headers: { Authorization: token },
+        }),
+        axios.get(`${WEB_URL}/username`, {
+          headers: { Authorization: token },
+        }),
+      ]);
+      setRoomsData(roomsRes.data.rooms);
+      setUserData(userRes.data.username[0]);
+    } catch (error) {
+      toast.error("Failed to load data");
     }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -71,7 +67,8 @@ export default function Dashboard() {
         }
       );
       setRoomId(res.data.roomid);
-      toast.success(`Room ${res.data.roomid} created successfully`);
+      toast.success(`Room created successfully`);
+      await fetchData(); // Fetch updated room list after creation
     } catch (e) {
       toast.warning("Room creation failed. Try again.");
     } finally {

@@ -13,6 +13,28 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
     AOS.init({ duration: 600, once: true });
   }, []);
 
+  useEffect(() => {
+    function handleEnterKey(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        const email = emailInputRef.current?.value.trim();
+        const pass = passInputRef.current?.value.trim();
+        const name = nameInputRef.current?.value.trim();
+
+        if (!email || !pass || (isSignup && !name)) {
+          toast.warning("Please fill out all the required fields");
+          return;
+        }
+
+        isSignup ? signup() : signin();
+      }
+    }
+
+    document.addEventListener("keydown", handleEnterKey);
+    return () => {
+      document.removeEventListener("keydown", handleEnterKey);
+    };
+  }, [isSignup]);
+
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -26,10 +48,18 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
     try {
       setLoading(true);
       await axios.post(`${WEB_URL}/signup`, { email, password, name });
+      alert("Signup successful! You can now sign in.");
       toast.success("You have successfully signed up!");
       router.push("/signin");
-    } catch {
-      toast.warning("Signup failed. Please try again later.");
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message ||
+        (err.code === "ECONNABORTED"
+          ? "Network timeout. Try again."
+          : err.message?.includes("Network Error")
+            ? "Network error. Check your internet."
+            : "Signup failed. Please try again later.");
+      toast.warning(message);
     } finally {
       setLoading(false);
     }
@@ -44,10 +74,17 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
       toast.success("You have successfully signed in!");
       localStorage.setItem("token", res.data.token);
       router.push("/roomsdashboard");
-    } catch {
-      toast.warning("Signin failed. Please try again later.");
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message ||
+        (err.code === "ECONNABORTED"
+          ? "Network timeout. Try again."
+          : err.message?.includes("Network Error")
+            ? "Network error. Check your internet."
+            : "Signin failed. Please try again later.");
+      toast.warning(message);
     } finally {
-      setLoading(false);
+      setLoading(false); // <-- Ensures loader always resets
     }
   }
 
@@ -108,12 +145,19 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
         data-aos="zoom-in"
         className="relative z-10 w-full max-w-md bg-[#1a1a1a] border border-neutral-800 rounded-2xl shadow-lg p-8"
       >
-        <h1 className="text-3xl font-bold text-center text-white mb-2">Welcome to</h1>
-        <h2 className="text-4xl font-extrabold text-center text-zinc-200 mb-6">SyncSketch</h2>
+        <h1 className="text-3xl font-bold text-center text-white mb-2">
+          Welcome to
+        </h1>
+        <h2 className="text-4xl font-extrabold text-center text-zinc-200 mb-6">
+          SyncSketch
+        </h2>
 
         <div className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-zinc-400">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-zinc-400"
+            >
               Email
             </label>
             <input
@@ -125,7 +169,10 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-400">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-zinc-400"
+            >
               Password
             </label>
             <input
@@ -138,7 +185,10 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
           </div>
           {isSignup && (
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-zinc-400">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-zinc-400"
+              >
                 Name
               </label>
               <input
@@ -170,7 +220,10 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
 
           <p className="text-center text-sm text-zinc-400 mt-4">
             {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
-            <a href={isSignup ? "/signin" : "/signup"} className="underline hover:text-zinc-200">
+            <a
+              href={isSignup ? "/signin" : "/signup"}
+              className="underline hover:text-zinc-200"
+            >
               {isSignup ? "Sign In" : "Sign Up"}
             </a>
           </p>

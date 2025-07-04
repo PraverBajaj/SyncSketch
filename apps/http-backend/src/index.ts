@@ -16,7 +16,6 @@ app.use(express.json());
 app.use(cors());
 
 
-// -------- SIGNUP --------
 app.post("/signup", async (req, res) => {
   const parsedData = CreateSignupSchema.safeParse(req.body);
 
