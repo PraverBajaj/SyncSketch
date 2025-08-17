@@ -35,7 +35,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: apps/frontend/Dockerfile
+      dockerfile: apps/frontend/Dockerfile.simple
     environment:
       NODE_ENV: development
       VIRTUAL_HOST: syncsketch.praverbajaj.tech

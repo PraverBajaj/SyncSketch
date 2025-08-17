@@ -1,0 +1,11 @@
+FROM node:23.5.0-alpine
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages ./packages
+COPY apps/frontend ./apps/frontend
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile --ignore-scripts
+WORKDIR /app/apps/frontend
+ENV NODE_ENV=development
+EXPOSE 3000
+CMD ["pnpm", "dev"]
