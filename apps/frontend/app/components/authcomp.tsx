@@ -1,6 +1,5 @@
 "use client";
 import { getAPIUrl } from "../../lib/api-utils";
-import { WEB_URL } from "../config";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -55,7 +54,7 @@ useEffect(() => {
     const name = nameInputRef.current?.value;
     try {
       setLoading(true);
-      await axios.post(`${WEB_URL}/signup`, { email, password, name });
+      await axios.post(`${getAPIUrl()}/signup`, { email, password, name });
       alert("Signup successful! You can now sign in.");
       toast.success("You have successfully signed up!");
       router.push("/signin");
@@ -78,10 +77,23 @@ useEffect(() => {
     const password = passInputRef.current?.value;
     try {
       setLoading(true);
-      const res = await axios.post(`${WEB_URL}/signin`, { email, password });
-      toast.success("You have successfully signed in!");
-      localStorage.setItem("token", res.data.token);
-      router.push("/roomsdashboard");
+      const response = await fetch(`${getAPIUrl()}/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        toast.success("You have successfully signed in!");
+        router.push("/roomsdashboard");
+      } else {
+        const errorData = await response.json();
+        toast.warning(errorData.message || "Signin failed");
+      }
     } catch (err: any) {
       const message =
         err.response?.data?.message ||
@@ -92,7 +104,7 @@ useEffect(() => {
             : "Signin failed. Please try again later.");
       toast.warning(message);
     } finally {
-      setLoading(false); // <-- Ensures loader always resets
+      setLoading(false);
     }
   }
 

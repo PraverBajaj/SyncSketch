@@ -59,7 +59,7 @@ services:
       LETSENCRYPT_HOST: api.syncsketch.praverbajaj.tech
       LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com
     restart: unless-stopped
-    mem_limit: 256m
+    mem_limit: 128m
 
   websocket:
     build:
@@ -73,7 +73,7 @@ services:
       LETSENCRYPT_HOST: ws.syncsketch.praverbajaj.tech
       LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com
     restart: unless-stopped
-    mem_limit: 256m
+    mem_limit: 128m
 
 volumes:
   nginx-certs:
