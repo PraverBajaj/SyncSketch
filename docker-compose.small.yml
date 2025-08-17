@@ -37,7 +37,7 @@ services:
       context: .
       dockerfile: apps/frontend/Dockerfile
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       VIRTUAL_HOST: syncsketch.praverbajaj.tech
       LETSENCRYPT_HOST: syncsketch.praverbajaj.tech
       LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com

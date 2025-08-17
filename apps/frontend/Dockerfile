@@ -8,7 +8,7 @@ COPY apps/frontend ./apps/frontend
 
 # Install pnpm and dependencies
 RUN npm install -g pnpm
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN cd apps/frontend && pnpm install
 RUN pnpm --filter ./apps/frontend build
 
@@ -21,7 +21,6 @@ COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/node_modules ./node_modules
 RUN npm install -g pnpm
 WORKDIR /app/apps/frontend
-RUN pnpm build
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 EXPOSE 3000
-CMD ["pnpm", "start"]
+CMD ["pnpm", "dev"]
