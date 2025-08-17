@@ -1,7 +1,5 @@
 "use client";
-import { getAPIUrl } from "../../lib/api-utils";
 import { getAPIUrlSimple } from "../../lib/api-simple";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -55,18 +53,26 @@ useEffect(() => {
     const name = nameInputRef.current?.value;
     try {
       setLoading(true);
-      await axios.post(`${getAPIUrlSimple()}/signup`, { email, password, name });
-      alert("Signup successful! You can now sign in.");
-      toast.success("You have successfully signed up!");
-      router.push("/signin");
+      const response = await fetch(`${getAPIUrlSimple()}/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, name }),
+      });
+      
+      if (response.ok) {
+        alert("Signup successful! You can now sign in.");
+        toast.success("You have successfully signed up!");
+        router.push("/signin");
+      } else {
+        const errorData = await response.json();
+        toast.warning(errorData.message || "Signup failed");
+      }
     } catch (err: any) {
-      const message =
-        err.response?.data?.message ||
-        (err.code === "ECONNABORTED"
-          ? "Network timeout. Try again."
-          : err.message?.includes("Network Error")
-            ? "Network error. Check your internet."
-            : "Signup failed. Please try again later.");
+      const message = err.message?.includes("Network Error")
+        ? "Network error. Check your internet."
+        : "Signup failed. Please try again later.";
       toast.warning(message);
     } finally {
       setLoading(false);

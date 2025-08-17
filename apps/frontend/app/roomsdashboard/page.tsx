@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getAPIUrlSimple } from "../../lib/api-simple";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";

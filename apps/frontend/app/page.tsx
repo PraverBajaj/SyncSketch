@@ -16,7 +16,9 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { GridBackgroundDemo } from "./components/gridbackgrounddemo";
 
-export default function NavbarDemo() {
+import { getAPIUrlSimple } from "../lib/api-simple";
+
+export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
