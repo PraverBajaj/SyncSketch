@@ -1,10 +1,21 @@
 // Environment-aware API URL function
 export const getAPIUrl = () => {
+  // Always check if we're in browser first
   if (typeof window !== 'undefined') {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:3009'
-      : 'https://api.syncsketch.praverbajaj.tech';
+    // Check the actual hostname from browser
+    const hostname = window.location.hostname;
+    console.log('Current hostname:', hostname); // Debug log
+    
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      console.log('Using localhost API'); // Debug log
+      return 'http://localhost:3009';
+    } else {
+      console.log('Using production API'); // Debug log
+      return 'https://api.syncsketch.praverbajaj.tech';
+    }
   }
+  
+  // Server-side fallback
   return process.env.NODE_ENV === 'production' 
     ? 'https://api.syncsketch.praverbajaj.tech'
     : 'http://localhost:3009';

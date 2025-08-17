@@ -1,5 +1,6 @@
 "use client";
 import { getAPIUrl } from "../../lib/api-utils";
+import { getAPIUrlSimple } from "../../lib/api-simple";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -54,7 +55,7 @@ useEffect(() => {
     const name = nameInputRef.current?.value;
     try {
       setLoading(true);
-      await axios.post(`${getAPIUrl()}/signup`, { email, password, name });
+      await axios.post(`${getAPIUrlSimple()}/signup`, { email, password, name });
       alert("Signup successful! You can now sign in.");
       toast.success("You have successfully signed up!");
       router.push("/signin");
@@ -75,9 +76,15 @@ useEffect(() => {
   async function signin() {
     const email = emailInputRef.current?.value;
     const password = passInputRef.current?.value;
+    
+    // Debug: Check what URL we're using
+    const apiUrl = getAPIUrlSimple(); // Use simple version
+    console.log('API URL being used:', apiUrl);
+    console.log('Current hostname:', window.location.hostname);
+    
     try {
       setLoading(true);
-      const response = await fetch(`${getAPIUrl()}/signin`, {
+      const response = await fetch(`${apiUrl}/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
