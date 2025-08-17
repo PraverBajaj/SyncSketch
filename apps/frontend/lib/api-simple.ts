@@ -1,31 +1,12 @@
-// Simple and explicit API URL detection
+// API URL configuration
+// 🔧 CHANGE THIS FOR LOCAL DEVELOPMENT:
+// For local development, change the return value below to: 'http://localhost:3009'
+// For production, keep it as: 'https://api.syncsketch.praverbajaj.tech'
+
 export const getAPIUrlSimple = () => {
-  // In Docker/production, check if we're running on the production domain
-  if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
-    const protocol = window.location.protocol;
-    
-    console.log('Full location:', window.location.href);
-    console.log('Hostname detected:', hostname);
-    console.log('Protocol:', protocol);
-    
-    // Explicitly check for production domain
-    if (hostname === 'syncsketch.praverbajaj.tech') {
-      console.log('Production domain detected - using production API');
-      return 'https://api.syncsketch.praverbajaj.tech';
-    }
-    
-    // Check for any non-localhost domain (in case of IP access)
-    if (hostname !== 'localhost' && hostname !== '127.0.0.1' && !hostname.startsWith('192.168.')) {
-      console.log('Non-localhost domain detected - using production API');
-      return 'https://api.syncsketch.praverbajaj.tech';
-    }
-    
-    // For localhost or local IPs
-    console.log('Development/localhost detected - using localhost API');
-    return 'http://localhost:3009';
-  }
+  // Always use production API (works for both local and production)
+  return 'https://api.syncsketch.praverbajaj.tech';
   
-  // Server-side fallback - this shouldn't be used for API calls
-  return 'http://localhost:3009';
+  // 🔧 UNCOMMENT THIS LINE FOR LOCAL DEVELOPMENT:
+  // return 'http://localhost:3009';
 };

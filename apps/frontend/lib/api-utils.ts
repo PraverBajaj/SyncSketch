@@ -22,12 +22,14 @@ export const getAPIUrl = () => {
 };
 
 // WebSocket URL function
+// 🔧 CHANGE THIS FOR LOCAL DEVELOPMENT:
+// For local development, change the return value below to: 'ws://localhost:8080'
+// For production, keep it as: 'wss://ws.syncsketch.praverbajaj.tech'
+
 export const getWSUrl = () => {
-  if (typeof window !== 'undefined') {
-    const isLocalhost = window.location.hostname === 'localhost';
-    return isLocalhost ? 'ws://localhost:8080' : 'wss://ws.syncsketch.praverbajaj.tech';
-  }
-  return process.env.NODE_ENV === 'production' 
-    ? 'wss://ws.syncsketch.praverbajaj.tech'
-    : 'ws://localhost:8080';
+  // Always use production WebSocket (works for both local and production)
+  return 'wss://ws.syncsketch.praverbajaj.tech';
+  
+  // 🔧 UNCOMMENT THIS LINE FOR LOCAL DEVELOPMENT:
+  // return 'ws://localhost:8080';
 };

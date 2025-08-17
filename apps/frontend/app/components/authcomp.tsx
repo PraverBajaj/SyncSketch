@@ -77,14 +77,9 @@ useEffect(() => {
     const email = emailInputRef.current?.value;
     const password = passInputRef.current?.value;
     
-    // Debug: Check what URL we're using
-    const apiUrl = getAPIUrlSimple(); // Use simple version
-    console.log('API URL being used:', apiUrl);
-    console.log('Current hostname:', window.location.hostname);
-    
     try {
       setLoading(true);
-      const response = await fetch(`${apiUrl}/signin`, {
+      const response = await fetch(`${getAPIUrlSimple()}/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
