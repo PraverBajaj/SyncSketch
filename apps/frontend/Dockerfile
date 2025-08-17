@@ -21,6 +21,7 @@ COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/node_modules ./node_modules
 RUN npm install -g pnpm
 WORKDIR /app/apps/frontend
-ENV NODE_ENV=development
+RUN pnpm build
+ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "start"]
