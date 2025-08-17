@@ -52,7 +52,7 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       DATABASE_URL: "postgresql://neondb_owner:npg_QXqhgmUW03Yy@ep-steep-resonance-a8mbwlbv-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
       VIRTUAL_HOST: api.syncsketch.praverbajaj.tech
       VIRTUAL_PORT: 3009
