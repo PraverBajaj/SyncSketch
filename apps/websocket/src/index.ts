@@ -1,4 +1,8 @@
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocketServer, WebSocket } from 'ws';
+
+// ...existing code...
+
+// ...existing code...
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { prismaClient } from "@repo/db/client";
@@ -42,7 +46,7 @@ wss.on("connection", (ws, request) => {
       return;
     }
 
-    const user: User = { ws, rooms: [], userId };
+    const user: User = { ws: ws as WebSocket, rooms: [], userId };
     users.push(user);
 
     ws.on("message", async (data) => {
@@ -144,7 +148,7 @@ wss.on("connection", (ws, request) => {
     });
 
     ws.on("close", () => {
-      const index = users.findIndex((u) => u.ws === ws);
+      const index = users.findIndex((u) => u.ws === (ws as WebSocket));
       if (index !== -1) {
         users.splice(index, 1);
       }

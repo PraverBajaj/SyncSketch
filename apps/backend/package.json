@@ -19,13 +19,13 @@
     "jsonwebtoken": "^9.0.2",
     "ws": "^8.18.2"
   },
-  "devDependencies": {
+  "dependencies": {
     "@repo/backend-common": "workspace:*",
     "@repo/common": "workspace:*",
     "@repo/db": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/express": "^5.0.1",
-    "@types/ws": "^8.18.1"
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
   },
   "keywords": [],
   "author": "",

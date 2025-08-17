@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import jwt from "jsonwebtoken";
 import { auth } from "./middleware";
 import { JWT_SECRET } from "@repo/backend-common/config";
@@ -13,7 +13,16 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://syncsketch.praverbajaj.tech',
+    'http://syncsketch.praverbajaj.tech'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 
 app.post("/signup", async (req, res) => {

@@ -1,8 +1,10 @@
+"use client";
+
 import AuthComp from "../components/authcomp";
 
-export default function Signin() {
+export default function SignInPage() {
   return (
-    <div>
+    <div className="min-h-screen flex items-center justify-center">
       <AuthComp isSignup={false} />
     </div>
   );

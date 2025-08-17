@@ -1,4 +1,5 @@
 "use client";
+import { getAPIUrl } from "../../lib/api-utils";
 import { WEB_URL } from "../config";
 import axios from "axios";
 import { useRouter } from "next/navigation";

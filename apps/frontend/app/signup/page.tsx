@@ -1,8 +1,10 @@
-import  AuthComp  from "../components/authcomp";
+"use client";
 
-export default function Signup() {
+import AuthComp from "../components/authcomp";
+
+export default function SignUpPage() {
   return (
-    <div>
+    <div className="min-h-screen flex items-center justify-center">
       <AuthComp isSignup={true} />
     </div>
   );
