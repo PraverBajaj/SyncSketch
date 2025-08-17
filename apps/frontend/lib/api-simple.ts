@@ -4,12 +4,8 @@
 // For production, keep it as: 'https://api.syncsketch.praverbajaj.tech'
 
 export const getAPIUrlSimple = () => {
-  console.log("getAPIUrlSimple called"); // Debug log
-  
-  // FORCING PRODUCTION URL - should never use localhost
-  const url = 'https://api.syncsketch.praverbajaj.tech';
-  console.log("Returning API URL:", url); // Debug log
-  return url;
+  // Always use production API (works for both local and production)
+  return 'https://api.syncsketch.praverbajaj.tech';
   
   // 🔧 UNCOMMENT THIS LINE FOR LOCAL DEVELOPMENT:
   // return 'http://localhost:3009';

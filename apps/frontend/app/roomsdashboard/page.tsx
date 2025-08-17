@@ -29,7 +29,7 @@ export default function Dashboard() {
     const token = localStorage.getItem("token");
     try {
       const [roomsRes, userRes] = await Promise.all([
-        axios.get(`${WEB_URL}/rooms`, {
+        axios.get(`${getAPIUrlSimple()}/rooms`, {
           headers: { Authorization: token },
         }),
         axios.get(`${WEB_URL}/username`, {

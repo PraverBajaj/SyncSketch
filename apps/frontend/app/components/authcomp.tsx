@@ -79,17 +79,13 @@ useEffect(() => {
     }
   }
 
-  console.log("About to call API:", getAPIUrlSimple()); // Debug log
-  
   async function signin() {
     const email = emailInputRef.current?.value;
     const password = passInputRef.current?.value;
     
     try {
       setLoading(true);
-      const apiUrl = getAPIUrlSimple();
-      console.log("Using API URL:", apiUrl); // Debug log
-      const response = await fetch(`${apiUrl}/signin`, {
+      const response = await fetch(`${getAPIUrlSimple()}/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
