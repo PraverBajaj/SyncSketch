@@ -1,0 +1,12 @@
+# .dockerignore
+node_modules
+.turbo
+.vscode
+.git
+.gitignore
+*.log
+*.cache
+tmp/
+dist/
+.next/
+# Do NOT exclude apps/ or packages/

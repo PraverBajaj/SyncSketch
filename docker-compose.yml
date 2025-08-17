@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - backend
+      - websocket
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    ports:
+      - "3009:3009"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "postgresql://neondb_owner:npg_QXqhgmUW03Yy@ep-steep-resonance-a8mbwlbv-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
+  websocket:
+    build:
+      context: .
+      dockerfile: apps/websocket/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "postgresql://neondb_owner:npg_QXqhgmUW03Yy@ep-steep-resonance-a8mbwlbv-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"

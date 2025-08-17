@@ -30,7 +30,7 @@ export async function Draw(
 ) {
   const ctx = canvas.getContext("2d");
 
-  let existingShapes: Shape[] = await getexistingShapes(roomId);
+  const existingShapes: Shape[] = await getexistingShapes(roomId);
 
   if (!ctx) {
     return;

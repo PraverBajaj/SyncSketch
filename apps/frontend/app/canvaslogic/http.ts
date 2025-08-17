@@ -9,7 +9,7 @@ export async function getExistingShapes(roomId: string) {
   });
 
   const messages = res.data.messages;
-  let shapes = messages.map((x: { message: string }) => {
+  const shapes = messages.map((x: { message: string }) => {
     const messageData = JSON.parse(x.message);
     return messageData.shape;
   });
