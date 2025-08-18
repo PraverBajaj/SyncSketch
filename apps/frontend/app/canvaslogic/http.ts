@@ -1,8 +1,8 @@
-import { WEB_URL } from "../config";
+import { getAPIUrlSimple } from "../../lib/api-simple";
 import axios from "axios";
 
 export async function getExistingShapes(roomId: string) {
-  const res = await axios.get(`${WEB_URL}/chats/${roomId}`, {
+  const res = await axios.get(`${getAPIUrlSimple()}/chats/${roomId}`, {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
@@ -16,7 +16,7 @@ export async function getExistingShapes(roomId: string) {
 
   try {
     const movementsRes = await axios.get(
-      `${WEB_URL}/shapeMovements/${roomId}`,
+      `${getAPIUrlSimple()}/shapeMovements/${roomId}`,
       {
         headers: {
           Authorization: localStorage.getItem("token"),

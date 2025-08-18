@@ -32,7 +32,7 @@ export default function Dashboard() {
         axios.get(`${getAPIUrlSimple()}/rooms`, {
           headers: { Authorization: token },
         }),
-        axios.get(`${WEB_URL}/username`, {
+        axios.get(`${getAPIUrlSimple()}/username`, {
           headers: { Authorization: token },
         }),
       ]);
@@ -57,7 +57,7 @@ export default function Dashboard() {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${WEB_URL}/createroom`,
+        `${getAPIUrlSimple()}/createroom`,
         {
           slug: roomNameRef.current?.value,
         },

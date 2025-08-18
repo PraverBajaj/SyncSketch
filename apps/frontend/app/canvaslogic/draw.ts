@@ -1,4 +1,4 @@
-import { WEB_URL } from "../config";
+import { getAPIUrlSimple } from "../../lib/api-simple";
 import axios from "axios";
 
 type Shape =
@@ -117,7 +117,7 @@ function clearShape(
 }
 
 async function getexistingShapes(roomId: string) {
-  const res = await axios.get(`${WEB_URL}/chats/${roomId}`);
+  const res = await axios.get(`${getAPIUrlSimple()}/chats/${roomId}`);
   const messages = res.data.messages;
 
   const shapes = messages.map((x: { message: string }) => {
