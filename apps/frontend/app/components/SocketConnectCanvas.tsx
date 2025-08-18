@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Canvas } from "./realcanvas";
-import { WS_URL } from "../config";
+import { getWSUrl } from "../../lib/api-utils";
 import Loader from "./loader";
 
 export function SocketCanvas({ roomId }: { roomId: string }) {
@@ -10,7 +10,7 @@ export function SocketCanvas({ roomId }: { roomId: string }) {
 
   useEffect(() => {
     const ws = new WebSocket(
-      `${WS_URL}?token=${localStorage.getItem("token")}`
+      `${getWSUrl()}?token=${localStorage.getItem("token")}`
     );
 
     ws.onopen = () => {
