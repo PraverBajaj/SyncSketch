@@ -1,28 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Turbopack configuration (stable)
-  turbopack: {},
-  
-  // Cross-origin configuration for production
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: '*'
-          }
-        ]
-      }
-    ];
+  assetPrefix: process.env.NODE_ENV === 'development' && process.env.DOCKER 
+    ? 'https://syncsketch.praverbajaj.tech' 
+    : undefined,
+  allowedDevOrigins: ['syncsketch.praverbajaj.tech'],
+  turbopack: {
+    rules: {
+      '*.css': {
+        loaders: ['@tailwindcss/postcss'],
+      },
+    },
   },
-  
-  // Output configuration for Vercel
-  output: 'standalone',
-  
-  // Disable telemetry
-  telemetry: false
+  devIndicators: false
 };
 
 export default nextConfig;
