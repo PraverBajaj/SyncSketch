@@ -5,8 +5,8 @@
 
 export const getAPIUrlSimple = () => {
   // Always use production API (works for both local and production)
-  return 'https://api.syncsketch.praverbajaj.tech';
+  // return 'https://api.syncsketch.praverbajaj.tech';
   
   // 🔧 UNCOMMENT THIS LINE FOR LOCAL DEVELOPMENT:
-  // return 'http://localhost:3009';
+  return 'http://localhost:3009';
 };

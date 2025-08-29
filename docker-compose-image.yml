@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - nginx-certs:/etc/nginx/certs
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+    restart: unless-stopped
+    mem_limit: 128m
+
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx-certs:/etc/nginx/certs
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+      - acme:/etc/acme.sh
+    environment:
+      - DEFAULT_EMAIL=praverbajaj1609@gmail.com
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    depends_on:
+      - nginx-proxy
+    restart: unless-stopped
+    mem_limit: 64m
+
+  frontend:
+    image: praverbajaj/syncsketch-frontend:latest
+    environment:
+      NODE_ENV: development
+      VIRTUAL_HOST: syncsketch.praverbajaj.tech
+      LETSENCRYPT_HOST: syncsketch.praverbajaj.tech
+      LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com
+    depends_on:
+      - backend
+      - websocket
+    restart: unless-stopped
+    mem_limit: 512m
+
+  backend:
+    image: praverbajaj/syncsketch-backend:latest
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://neondb_owner:npg_QXqhgmUW03Yy@ep-steep-resonance-a8mbwlbv-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
+      VIRTUAL_HOST: api.syncsketch.praverbajaj.tech
+      VIRTUAL_PORT: 3009
+      LETSENCRYPT_HOST: api.syncsketch.praverbajaj.tech
+      LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com
+    restart: unless-stopped
+    mem_limit: 512m
+
+  websocket:
+    image: praverbajaj/syncsketch-websocket:latest
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "postgresql://neondb_owner:npg_QXqhgmUW03Yy@ep-steep-resonance-a8mbwlbv-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
+      VIRTUAL_HOST: ws.syncsketch.praverbajaj.tech
+      VIRTUAL_PORT: 8080
+      LETSENCRYPT_HOST: ws.syncsketch.praverbajaj.tech
+      LETSENCRYPT_EMAIL: praverbajaj1609@gmail.com
+    restart: unless-stopped
+    mem_limit: 512m
+volumes:
+  nginx-certs:
+  nginx-vhost:
+  nginx-html:
+  acme:
