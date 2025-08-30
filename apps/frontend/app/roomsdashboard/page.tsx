@@ -218,11 +218,6 @@ export default function Dashboard() {
           </div>
         )}
       </main>
-      <div className="w-full text-center mt-4">
-        <p className="text-xs text-yellow-400">
-          Hosted on free instance, which may delay requests by 50 seconds or more due to inactivity. Please wait.
-        </p>
-      </div>
     </div>
   );
 }
