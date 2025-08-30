@@ -13,7 +13,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SynSketch",
+  title: "SyncSketch",
   description: "Collaborative sketching tool",
 };
 

@@ -256,6 +256,9 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
                 {isSignup ? "Sign In" : "Sign Up"}
               </a>
             </p>
+            <p className="text-center text-xs text-yellow-400 mt-2">
+              Hosted on free instance, which may delay requests by 50 seconds or more due to inactivity. Please wait.
+            </p>
           </div>
         </div>
 
