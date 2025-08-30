@@ -8,5 +8,5 @@ export const getAPIUrlSimple = () => {
   // return 'https://api.syncsketch.praverbajaj.tech';
   
   // 🔧 UNCOMMENT THIS LINE FOR LOCAL DEVELOPMENT:
-  return 'http://localhost:3009';
+  return 'https://syncsketch-2.onrender.com';
 };

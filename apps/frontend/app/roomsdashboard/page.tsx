@@ -5,7 +5,6 @@ import { getAPIUrlSimple } from "../../lib/api-simple";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { WEB_URL } from "../config";
 import Loader from "../components/loader";
 import "aos/dist/aos.css";
 import Aos from "aos";
