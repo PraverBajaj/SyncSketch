@@ -25,6 +25,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+// Public health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 app.post("/signup", async (req, res) => {
   const parsedData = CreateSignupSchema.safeParse(req.body);
